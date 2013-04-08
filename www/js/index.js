@@ -1,13 +1,16 @@
 
 $(function() {
     $("#recordbutton").click(function() {
-        alert("click");
         if (started) {
             $("span", this).text("Record");
+            $(this).removeClass("recording");
+            $("#playbutton").addClass("showing");
             stopAudio();
         }
         else {
             $("span", this).text("Stop Recording");
+            $(this).addClass("recording");
+            $("#playbutton").removeClass("showing");
             recordAudio();
         }
 
@@ -20,7 +23,11 @@ $(function() {
 
     $("#playbutton").click(function() {
         playback();
-    });
+    }).on("touchstart", function() { 
+        $(this).addClass("pressed");
+    }).on("touchend", function() { 
+        $(this).removeClass("pressed");
+    });;
 }
 );
 var mediaRec, started = false;
